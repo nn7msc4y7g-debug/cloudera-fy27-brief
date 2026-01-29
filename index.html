@@ -1,0 +1,694 @@
+<!-- force rebuild -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudera FY27 Strategic Account Brief - Extended</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f3f4f6; }
+        .chart-container { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; height: 450px; }
+        .card { background: white; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .bg-brand-dark { background-color: #0f172a; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e5e7eb; }
+        th { background-color: #f8fafc; font-weight: 600; color: #1e293b; position: sticky; top: 0; }
+        tr:hover { background-color: #f1f5f9; }
+        .fit-high { color: #16a34a; font-weight: bold; }
+        .fit-med { color: #ca8a04; font-weight: bold; }
+        .fit-low { color: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <header class="bg-brand-dark text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-tight">Cloudera FY27 <span class="text-sky-400">Strategic Account Brief (Incl. IAG)</span></h1>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#summary" class="hover:text-sky-300 transition">Overview</a>
+                <a href="#heatmap" class="hover:text-sky-300 transition">Strategic Heatmap</a>
+                <a href="#gtm-table" class="hover:text-sky-300 transition">GTM Mapping Table</a>
+                <a href="#pitches" class="hover:text-sky-300 transition">Elevator Pitches</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 space-y-12">
+        <section id="summary" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+                <div class="card p-8 h-full border-l-4 border-sky-500">
+                    <h2 class="text-2xl font-bold mb-4 text-slate-800">FY27 Executive Summary</h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        The FY27 growth strategy for our target accounts, now including <strong>IAG Limited</strong>, hinges on the converging pressure points of <strong>Regulatory Compliance (CPS230)</strong>, <strong>Data Sovereignty</strong>, and <strong>Industrializing Generative AI</strong>. 
+                    </p>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        IAG's transition to a unified "Retail Enterprise Platform" and their integration of the $3bn RACQ/RAC portfolios represents a massive metadata and lineage challenge. Simultaneously, the July 1, 2025 APRA CPS 230 deadline makes operational resilience a "non-discretionary" capital expenditure across the entire patch.
+                    </p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <span class="px-3 py-1 bg-sky-100 text-sky-800 rounded-full text-sm font-semibold">Priority: Efficiency</span>
+                        <span class="px-3 py-1 bg-rose-100 text-rose-800 rounded-full text-sm font-semibold">Risk: CPS 230</span>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-semibold">IAG Focus: Data Mesh</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-1">
+                <div class="card p-6 h-full flex flex-col justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-white">
+                    <h3 class="text-xl font-bold mb-2">Key Account Triggers</h3>
+                    <ul class="space-y-4 mt-4">
+                        <li class="flex items-center">
+                            <span class="text-2xl mr-3">🛡️</span>
+                            <div>
+                                <span class="block font-bold text-sky-300">Operational Resilience</span>
+                                <span class="text-xs text-slate-400">Target: IAG, AMP, BOQ, Pepper</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-2xl mr-3">🧬</span>
+                            <div>
+                                <span class="block font-bold text-rose-300">Auditable Lineage (Octopai)</span>
+                                <span class="text-xs text-slate-400">Target: IAG, Netwealth, Challenger</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="heatmap" class="bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">Strategic Fit Heatmap</h2>
+            <div class="chart-container">
+                <canvas id="opportunityBubbleChart"></canvas>
+            </div>
+        </section>
+
+        <section id="gtm-table">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">GTM Mapping Table</h2>
+            <div class="overflow-x-auto bg-white rounded-xl shadow-lg border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr>
+                            <th class="w-32">Account</th>
+                            <th class="w-40">GTM Use Case</th>
+                            <th class="w-24">Strategic Fit</th>
+                            <th class="w-48">Trigger Event</th>
+                            <th class="w-48">Target Persona</th>
+                            <th class="w-64">Strategic Hook</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        
+            <tr>
+                <td class="font-bold text-slate-700">Pepper Money</td>
+                <td>Octopai (Lineage)</td>
+                <td class="fit-high">HIGH</td>
+                <td>Mapping data for RAMS vs. Pepper systems; auditing securitization data.[2, 3]</td>
+                <td>Chief Data Officer (CDO), Head of Data Architecture, Enterprise Data Manager.</td>
+                <td>Automate the data mapping of your legacy vs. digital systems to ensure one version of the truth and meet CPS 230 lineage requirements</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Pepper Money</td>
+                <td>DiM (Data in Motion)</td>
+                <td class="fit-med">MED</td>
+                <td>Streaming Open Banking data for instant income/credit verification.[3]</td>
+                <td>CTO, Head of Payments Infrastructure, Head of Fraud Operations.</td>
+                <td>Process sub-second NPP transaction streams and move from reactive to dynamic fraud defense with real-time analytics.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Pepper Money</td>
+                <td>CAI (Cloudera AI)</td>
+                <td class="fit-med">MED</td>
+                <td>Developing models for EV and Sharia-compliant loans.[4]</td>
+                <td>Head of AI/ML, Chief Digital Officer, Head of Product Strategy, Head of Innovation.</td>
+                <td>Eliminate the 'black box' risk with Explainable AI for credit scoring and automate meeting summaries for your advisors to increase productivity.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Pepper Money</td>
+                <td>Invoice Normalisation</td>
+                <td class="fit-med">MED</td>
+                <td>Standardizing diverse vendor invoices for Asset Finance division.[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Pepper Money</td>
+                <td>CPS 230 (Resilience)</td>
+                <td class="fit-med">MED</td>
+                <td>Managing operational risk for 3rd party warehouse funding.</td>
+                <td>Chief Risk Officer (CRO), Head of Operational Risk, Head of Compliance/Reg Reporting</td>
+                <td>The July 1, 2025 deadline is looming. We can automate your 'business process log' and gap analysis against the APRA CPS 230 reporting framework.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Pepper Money</td>
+                <td>RFP/RFI Assessment</td>
+                <td class="fit-med">MED</td>
+                <td>Evaluating external capital partners and whole-loan buyers.[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Netwealth</td>
+                <td>Octopai (Lineage)</td>
+                <td class="fit-high">HIGH</td>
+                <td>Unifying data across 22+ disparate technologies (Xplan, CRMs).[6, 8]</td>
+                <td>Chief Data Officer (CDO), Head of Data Architecture, Enterprise Data Manager.</td>
+                <td>Automate the data mapping of your legacy vs. digital systems to ensure one version of the truth and meet CPS 230 lineage requirements</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Netwealth</td>
+                <td>DiM (Data in Motion)</td>
+                <td class="fit-low">LOW</td>
+                <td>Real-time data fluidity between advice platforms.</td>
+                <td>CTO, Head of Payments Infrastructure, Head of Fraud Operations.</td>
+                <td>Process sub-second NPP transaction streams and move from reactive to dynamic fraud defense with real-time analytics.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Netwealth</td>
+                <td>CAI (Cloudera AI)</td>
+                <td class="fit-med">MED</td>
+                <td>GenAI for client meeting notes, summaries, and file notes.[9]</td>
+                <td>Head of AI/ML, Chief Digital Officer, Head of Product Strategy, Head of Innovation.</td>
+                <td>Eliminate the 'black box' risk with Explainable AI for credit scoring and automate meeting summaries for your advisors to increase productivity.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Netwealth</td>
+                <td>Invoice Normalisation</td>
+                <td class="fit-low">LOW</td>
+                <td>Standardizing data from varied Xplan and CRM sources.[7]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Netwealth</td>
+                <td>CPS 230 (Resilience)</td>
+                <td class="fit-med">MED</td>
+                <td>Investment governance overhaul for APRA compliance.[6]</td>
+                <td>Chief Risk Officer (CRO), Head of Operational Risk, Head of Compliance/Reg Reporting</td>
+                <td>The July 1, 2025 deadline is looming. We can automate your 'business process log' and gap analysis against the APRA CPS 230 reporting framework.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Netwealth</td>
+                <td>RFP/RFI Assessment</td>
+                <td class="fit-low">LOW</td>
+                <td>Streamlining evaluations for the 22+ vendors in their stack.[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">BOQ</td>
+                <td>Octopai (Lineage)</td>
+                <td class="fit-high">HIGH</td>
+                <td>Mapping lineage for heritage to digital (MyBOQ) migration.[10, 12]</td>
+                <td>Chief Data Officer (CDO), Head of Data Architecture, Enterprise Data Manager.</td>
+                <td>Automate the data mapping of your legacy vs. digital systems to ensure one version of the truth and meet CPS 230 lineage requirements</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">BOQ</td>
+                <td>DiM (Data in Motion)</td>
+                <td class="fit-med">MED</td>
+                <td>Monitoring digital mortgage "straight-through processing" (STP).[13]</td>
+                <td>CTO, Head of Payments Infrastructure, Head of Fraud Operations.</td>
+                <td>Process sub-second NPP transaction streams and move from reactive to dynamic fraud defense with real-time analytics.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">BOQ</td>
+                <td>CAI (Cloudera AI)</td>
+                <td class="fit-med">MED</td>
+                <td>Agentic AI via "AI Academy" to lower cost-to-serve.[14]</td>
+                <td>Head of AI/ML, Chief Digital Officer, Head of Product Strategy, Head of Innovation.</td>
+                <td>Eliminate the 'black box' risk with Explainable AI for credit scoring and automate meeting summaries for your advisors to increase productivity.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">BOQ</td>
+                <td>Invoice Normalisation</td>
+                <td class="fit-low">LOW</td>
+                <td>Automating back-office document processing.[10]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">BOQ</td>
+                <td>CPS 230 (Resilience)</td>
+                <td class="fit-high">HIGH</td>
+                <td>APRA enforceable undertakings and risk maturity.[11, 14]</td>
+                <td>Chief Risk Officer (CRO), Head of Operational Risk, Head of Compliance/Reg Reporting</td>
+                <td>The July 1, 2025 deadline is looming. We can automate your 'business process log' and gap analysis against the APRA CPS 230 reporting framework.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">BOQ</td>
+                <td>RFP/RFI Assessment</td>
+                <td class="fit-med">MED</td>
+                <td>Evaluating vendors for the final stages of digital bank build.[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Equifax Australia</td>
+                <td>Octopai (Lineage)</td>
+                <td class="fit-med">MED</td>
+                <td>Metadata management for Data Fabric (100+ sources).[15, 17]</td>
+                <td>Chief Data Officer (CDO), Head of Data Architecture, Enterprise Data Manager.</td>
+                <td>Automate the data mapping of your legacy vs. digital systems to ensure one version of the truth and meet CPS 230 lineage requirements</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Equifax Australia</td>
+                <td>DiM (Data in Motion)</td>
+                <td class="fit-high">HIGH</td>
+                <td>Real-time Ignite/InterConnect analytics for fraud defense.[15]</td>
+                <td>CTO, Head of Payments Infrastructure, Head of Fraud Operations.</td>
+                <td>Process sub-second NPP transaction streams and move from reactive to dynamic fraud defense with real-time analytics.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Equifax Australia</td>
+                <td>CAI (Cloudera AI)</td>
+                <td class="fit-high">HIGH</td>
+                <td>XAI for ethical credit scoring and financial inclusion.[18, 19]</td>
+                <td>Head of AI/ML, Chief Digital Officer, Head of Product Strategy, Head of Innovation.</td>
+                <td>Eliminate the 'black box' risk with Explainable AI for credit scoring and automate meeting summaries for your advisors to increase productivity.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Equifax Australia</td>
+                <td>Invoice Normalisation</td>
+                <td class="fit-med">MED</td>
+                <td>Standardizing massive trade payment data (Debtor IQ).[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Equifax Australia</td>
+                <td>CPS 230 (Resilience)</td>
+                <td class="fit-low">LOW</td>
+                <td>Enhancing resilience as a critical data service provider.[17]</td>
+                <td>Chief Risk Officer (CRO), Head of Operational Risk, Head of Compliance/Reg Reporting</td>
+                <td>The July 1, 2025 deadline is looming. We can automate your 'business process log' and gap analysis against the APRA CPS 230 reporting framework.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Equifax Australia</td>
+                <td>RFP/RFI Assessment</td>
+                <td class="fit-med">MED</td>
+                <td>Managing high-velocity internal RFI/RFP for 150 products/year.[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">AMP Limited</td>
+                <td>Octopai (Lineage)</td>
+                <td class="fit-med">MED</td>
+                <td>Governance during final stages of $150M simplification program.[9, 21]</td>
+                <td>Chief Data Officer (CDO), Head of Data Architecture, Enterprise Data Manager.</td>
+                <td>Automate the data mapping of your legacy vs. digital systems to ensure one version of the truth and meet CPS 230 lineage requirements</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">AMP Limited</td>
+                <td>DiM (Data in Motion)</td>
+                <td class="fit-low">LOW</td>
+                <td>Digital lending platform pilot and automated origination.[9]</td>
+                <td>CTO, Head of Payments Infrastructure, Head of Fraud Operations.</td>
+                <td>Process sub-second NPP transaction streams and move from reactive to dynamic fraud defense with real-time analytics.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">AMP Limited</td>
+                <td>CAI (Cloudera AI)</td>
+                <td class="fit-med">MED</td>
+                <td>Market-first AI file note solution for super members.[9, 20]</td>
+                <td>Head of AI/ML, Chief Digital Officer, Head of Product Strategy, Head of Innovation.</td>
+                <td>Eliminate the 'black box' risk with Explainable AI for credit scoring and automate meeting summaries for your advisors to increase productivity.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">AMP Limited</td>
+                <td>Invoice Normalisation</td>
+                <td class="fit-med">MED</td>
+                <td>Transaction categorization for "mini business" customers.[9]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">AMP Limited</td>
+                <td>CPS 230 (Resilience)</td>
+                <td class="fit-high">HIGH</td>
+                <td>Upgraded risk system to facilitate CPS 230 compliance.[20]</td>
+                <td>Chief Risk Officer (CRO), Head of Operational Risk, Head of Compliance/Reg Reporting</td>
+                <td>The July 1, 2025 deadline is looming. We can automate your 'business process log' and gap analysis against the APRA CPS 230 reporting framework.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">AMP Limited</td>
+                <td>RFP/RFI Assessment</td>
+                <td class="fit-low">LOW</td>
+                <td>Evaluating new digital bank feature partners.[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Bendigo & Adelaide</td>
+                <td>Octopai (Lineage)</td>
+                <td class="fit-high">HIGH</td>
+                <td>Mapping "Model Evolution" for single core banking transition.[23]</td>
+                <td>Chief Data Officer (CDO), Head of Data Architecture, Enterprise Data Manager.</td>
+                <td>Automate the data mapping of your legacy vs. digital systems to ensure one version of the truth and meet CPS 230 lineage requirements</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Bendigo & Adelaide</td>
+                <td>DiM (Data in Motion)</td>
+                <td class="fit-med">MED</td>
+                <td>Real-time scam/fraud detection (36% reduction in losses).[22]</td>
+                <td>CTO, Head of Payments Infrastructure, Head of Fraud Operations.</td>
+                <td>Process sub-second NPP transaction streams and move from reactive to dynamic fraud defense with real-time analytics.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Bendigo & Adelaide</td>
+                <td>CAI (Cloudera AI)</td>
+                <td class="fit-med">MED</td>
+                <td>Modernizing core technology using GenAI (MongoDB partner).[12]</td>
+                <td>Head of AI/ML, Chief Digital Officer, Head of Product Strategy, Head of Innovation.</td>
+                <td>Eliminate the 'black box' risk with Explainable AI for credit scoring and automate meeting summaries for your advisors to increase productivity.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Bendigo & Adelaide</td>
+                <td>Invoice Normalisation</td>
+                <td class="fit-low">LOW</td>
+                <td>Automating credit decisioning for digital mortgages.[12]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Bendigo & Adelaide</td>
+                <td>CPS 230 (Resilience)</td>
+                <td class="fit-high">HIGH</td>
+                <td>Uplifting risk management capabilities for operational resilience.[22]</td>
+                <td>Chief Risk Officer (CRO), Head of Operational Risk, Head of Compliance/Reg Reporting</td>
+                <td>The July 1, 2025 deadline is looming. We can automate your 'business process log' and gap analysis against the APRA CPS 230 reporting framework.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Bendigo & Adelaide</td>
+                <td>RFP/RFI Assessment</td>
+                <td class="fit-med">MED</td>
+                <td>Assessing vendors for the single core banking system transition.[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Challenger Limited</td>
+                <td>Octopai (Lineage)</td>
+                <td class="fit-med">MED</td>
+                <td>Metadata management for new scalable operating platform.[24]</td>
+                <td>Chief Data Officer (CDO), Head of Data Architecture, Enterprise Data Manager.</td>
+                <td>Automate the data mapping of your legacy vs. digital systems to ensure one version of the truth and meet CPS 230 lineage requirements</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Challenger Limited</td>
+                <td>DiM (Data in Motion)</td>
+                <td class="fit-low">LOW</td>
+                <td>Real-time performance and risk-adjusted analytics.[24]</td>
+                <td>CTO, Head of Payments Infrastructure, Head of Fraud Operations.</td>
+                <td>Process sub-second NPP transaction streams and move from reactive to dynamic fraud defense with real-time analytics.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Challenger Limited</td>
+                <td>CAI (Cloudera AI)</td>
+                <td class="fit-med">MED</td>
+                <td>AI-governed investment performance modeling.[24]</td>
+                <td>Head of AI/ML, Chief Digital Officer, Head of Product Strategy, Head of Innovation.</td>
+                <td>Eliminate the 'black box' risk with Explainable AI for credit scoring and automate meeting summaries for your advisors to increase productivity.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Challenger Limited</td>
+                <td>Invoice Normalisation</td>
+                <td class="fit-low">LOW</td>
+                <td>Ingesting new alternative investment strategies.[24]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Challenger Limited</td>
+                <td>CPS 230 (Resilience)</td>
+                <td class="fit-med">MED</td>
+                <td>Data privacy and cyber security for regulated life insurance.[24]</td>
+                <td>Chief Risk Officer (CRO), Head of Operational Risk, Head of Compliance/Reg Reporting</td>
+                <td>The July 1, 2025 deadline is looming. We can automate your 'business process log' and gap analysis against the APRA CPS 230 reporting framework.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Challenger Limited</td>
+                <td>RFP/RFI Assessment</td>
+                <td class="fit-med">MED</td>
+                <td>Using non-biased evaluation for new investment strategy bids.[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Cuscal Limited</td>
+                <td>Octopai (Lineage)</td>
+                <td class="fit-low">LOW</td>
+                <td>Monitoring health and performance of CDR APIs.</td>
+                <td>Chief Data Officer (CDO), Head of Data Architecture, Enterprise Data Manager.</td>
+                <td>Automate the data mapping of your legacy vs. digital systems to ensure one version of the truth and meet CPS 230 lineage requirements</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Cuscal Limited</td>
+                <td>DiM (Data in Motion)</td>
+                <td class="fit-high">HIGH</td>
+                <td>NPP transaction streaming and real-time payments.[25, 26]</td>
+                <td>CTO, Head of Payments Infrastructure, Head of Fraud Operations.</td>
+                <td>Process sub-second NPP transaction streams and move from reactive to dynamic fraud defense with real-time analytics.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Cuscal Limited</td>
+                <td>CAI (Cloudera AI)</td>
+                <td class="fit-high">HIGH</td>
+                <td>AI/ML for advanced data-driven fraud monitoring.[25, 26]</td>
+                <td>Head of AI/ML, Chief Digital Officer, Head of Product Strategy, Head of Innovation.</td>
+                <td>Eliminate the 'black box' risk with Explainable AI for credit scoring and automate meeting summaries for your advisors to increase productivity.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Cuscal Limited</td>
+                <td>Invoice Normalisation</td>
+                <td class="fit-med">MED</td>
+                <td>Reconciliation of BPAY/RTGS and payments data.[26, 5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Cuscal Limited</td>
+                <td>CPS 230 (Resilience)</td>
+                <td class="fit-med">MED</td>
+                <td>Resilience of critical NPP and card infrastructure.[26]</td>
+                <td>Chief Risk Officer (CRO), Head of Operational Risk, Head of Compliance/Reg Reporting</td>
+                <td>The July 1, 2025 deadline is looming. We can automate your 'business process log' and gap analysis against the APRA CPS 230 reporting framework.</td>
+            </tr>
+            
+            <tr>
+                <td class="font-bold text-slate-700">Cuscal Limited</td>
+                <td>RFP/RFI Assessment</td>
+                <td class="fit-low">LOW</td>
+                <td>Assessing new industry sector partners as CDR expands.[5]</td>
+                <td>Chief Financial Officer (CFO), Head of Asset Finance, Head of Procurement/Sourcing.</td>
+                <td>Standardize disparate vendor invoices automatically to your internal SKUs and remove human bias from your large-volume vendor tender evaluations</td>
+            </tr>
+            
+    <tr>
+        <td class="font-bold text-slate-700">IAG Limited</td>
+        <td>Octopai (Lineage)</td>
+        <td class="fit-high">HIGH</td>
+        <td>Integration of $3bn GWP from RACQ/RAC alliances and FAR requirements.</td>
+        <td>Chief Data Officer (CDO)</td>
+        <td>Data silos and fragmented metadata preventing a 'Single View of Everything'.</td>
+    </tr>
+    
+    <tr>
+        <td class="font-bold text-slate-700">IAG Limited</td>
+        <td>DiM (Data in Motion)</td>
+        <td class="fit-high">HIGH</td>
+        <td>Mission-critical real-time pricing and telemetry for smart car tech.</td>
+        <td>Chief Operating Officer (COO)</td>
+        <td>System downtime impacting ability to price quotes or write policies in real-time.</td>
+    </tr>
+    
+    <tr>
+        <td class="font-bold text-slate-700">IAG Limited</td>
+        <td>Invoice Normalisation</td>
+        <td class="fit-high">HIGH</td>
+        <td>$10.2bn in claims paid; necessity of achieving fraud and supply chain benefits.</td>
+        <td>EGM Claims / CFO</td>
+        <td>Undetected over-servicing and billing inaccuracies across the repairer network.</td>
+    </tr>
+    
+    <tr>
+        <td class="font-bold text-slate-700">IAG Limited</td>
+        <td>CPS 230 (Resilience)</td>
+        <td class="fit-high">HIGH</td>
+        <td>APRA July 1, 2025 deadline; monitoring critical 4th-party service providers.</td>
+        <td>Group Chief Risk Officer (CRO)</td>
+        <td>Board-level accountability for disruptions and inability to monitor impact tolerances.</td>
+    </tr>
+    
+    <tr>
+        <td class="font-bold text-slate-700">IAG Limited</td>
+        <td>RFP/RFI Assessment</td>
+        <td class="fit-med">MED</td>
+        <td>IAG GBS modernization and the 'Intermediated' division transformation.</td>
+        <td>CFO / Procurement Lead</td>
+        <td>High manual overhead in procurement and slow time-to-insight for vendor contracts.</td>
+    </tr>
+    
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="pitches">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">30-Second Elevator Pitches</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Pitch 1: CRO Focus -->
+                <div class="card p-6 border-t-4 border-rose-500">
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Pitch for CRO / Risk Head</h3>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-1 rounded">Focus: CPS230 & Resilience</span>
+                    </div>
+                    <p class="text-slate-600 italic leading-relaxed">
+                        "Hi [Name], keeping APRA happy with CPS230 is likely top of mind right now. The challenge I’m seeing with peers like Suncorp is proving that your critical data services are resilient <em>without</em> stalling the business. Cloudera is helping FSIs automate that resilience layer—essentially insuring your data availability against vendor failure so you stay compliant without the manual overhead. Can we take 10 minutes to see if this aligns with your July readiness plan?"
+                    </p>
+                </div>
+
+                <!-- Pitch 2: CDO Focus -->
+                <div class="card p-6 border-t-4 border-sky-500">
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Pitch for CDO / Data Arch</h3>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-1 rounded">Focus: Octopai / AI Trust</span>
+                    </div>
+                    <p class="text-slate-600 italic leading-relaxed">
+                        "Hi [Name], I noticed the push for Generative AI in your FY27 strategy. The blocker most CDOs are hitting is 'Data Trust'—they can't safely feed models because they don't have clear lineage of where the data originated. We’ve just acquired Octopai to solve exactly this: instant, automated data lineage that creates a 'trust wrapper' for your AI projects. It cuts the risk of hallucinations and migration errors significantly. Worth a brief look?"
+                    </p>
+                </div>
+
+                <!-- Pitch 3: Operations/Claims -->
+                <div class="card p-6 border-t-4 border-emerald-500">
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Pitch for Head of Claims/Ops</h3>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">Focus: Invoice AI / Efficiency</span>
+                    </div>
+                    <p class="text-slate-600 italic leading-relaxed">
+                        "Hi [Name], with claims inflation squeezing margins, every dollar of leakage counts. We're working with insurers to use AI not just for chat, but to audit incoming invoices at scale—catching duplicates and errors that humans miss. It’s a direct hit to the bottom line that improves efficiency without adding headcount. Are you open to seeing how we normalized billing data for [Competitor/Peer]?"
+                    </p>
+                </div>
+                 <!-- Pitch 4: Mining/Tech -->
+                 <div class="card p-6 border-t-4 border-amber-500">
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Pitch for OT/IT Head (Mining)</h3>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded">Focus: DiM / Telemetry</span>
+                    </div>
+                    <p class="text-slate-600 italic leading-relaxed">
+                        "Hi [Name], minimizing downtime in the Pilbara is obviously critical. The gap we often see is the latency between the sensor on the truck and the decision in the ROC. We're using streaming data to process that telemetry in real-time—at the edge—so you can predict failure <em>before</em> the asset goes down, rather than analyzing it after. Would it be useful to discuss your current data lag?"
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('opportunityBubbleChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Strategic Opportunities',
+                        data: [{"x": "Pepper Money", "y": 5, "r": 22, "label": "Pepper Money (Octopai (Lineage))", "product": "Octopai (Lineage)", "value": "HIGH"}, {"x": "Pepper Money", "y": 3, "r": 16, "label": "Pepper Money (DiM (Data in Motion))", "product": "DiM (Data in Motion)", "value": "MED"}, {"x": "Pepper Money", "y": 3, "r": 16, "label": "Pepper Money (CAI (Cloudera AI))", "product": "CAI (Cloudera AI)", "value": "MED"}, {"x": "Pepper Money", "y": 3, "r": 16, "label": "Pepper Money (Invoice Normalisation)", "product": "Invoice Normalisation", "value": "MED"}, {"x": "Pepper Money", "y": 3, "r": 16, "label": "Pepper Money (CPS 230 (Resilience))", "product": "CPS 230 (Resilience)", "value": "MED"}, {"x": "Pepper Money", "y": 3, "r": 16, "label": "Pepper Money (RFP/RFI Assessment)", "product": "RFP/RFI Assessment", "value": "MED"}, {"x": "Netwealth", "y": 5, "r": 22, "label": "Netwealth (Octopai (Lineage))", "product": "Octopai (Lineage)", "value": "HIGH"}, {"x": "Netwealth", "y": 2, "r": 12, "label": "Netwealth (DiM (Data in Motion))", "product": "DiM (Data in Motion)", "value": "LOW"}, {"x": "Netwealth", "y": 3, "r": 16, "label": "Netwealth (CAI (Cloudera AI))", "product": "CAI (Cloudera AI)", "value": "MED"}, {"x": "Netwealth", "y": 2, "r": 12, "label": "Netwealth (Invoice Normalisation)", "product": "Invoice Normalisation", "value": "LOW"}, {"x": "Netwealth", "y": 3, "r": 16, "label": "Netwealth (CPS 230 (Resilience))", "product": "CPS 230 (Resilience)", "value": "MED"}, {"x": "Netwealth", "y": 2, "r": 12, "label": "Netwealth (RFP/RFI Assessment)", "product": "RFP/RFI Assessment", "value": "LOW"}, {"x": "BOQ", "y": 5, "r": 22, "label": "BOQ (Octopai (Lineage))", "product": "Octopai (Lineage)", "value": "HIGH"}, {"x": "BOQ", "y": 3, "r": 16, "label": "BOQ (DiM (Data in Motion))", "product": "DiM (Data in Motion)", "value": "MED"}, {"x": "BOQ", "y": 3, "r": 16, "label": "BOQ (CAI (Cloudera AI))", "product": "CAI (Cloudera AI)", "value": "MED"}, {"x": "BOQ", "y": 2, "r": 12, "label": "BOQ (Invoice Normalisation)", "product": "Invoice Normalisation", "value": "LOW"}, {"x": "BOQ", "y": 5, "r": 22, "label": "BOQ (CPS 230 (Resilience))", "product": "CPS 230 (Resilience)", "value": "HIGH"}, {"x": "BOQ", "y": 3, "r": 16, "label": "BOQ (RFP/RFI Assessment)", "product": "RFP/RFI Assessment", "value": "MED"}, {"x": "Equifax Australia", "y": 3, "r": 16, "label": "Equifax Australia (Octopai (Lineage))", "product": "Octopai (Lineage)", "value": "MED"}, {"x": "Equifax Australia", "y": 5, "r": 22, "label": "Equifax Australia (DiM (Data in Motion))", "product": "DiM (Data in Motion)", "value": "HIGH"}, {"x": "Equifax Australia", "y": 5, "r": 22, "label": "Equifax Australia (CAI (Cloudera AI))", "product": "CAI (Cloudera AI)", "value": "HIGH"}, {"x": "Equifax Australia", "y": 3, "r": 16, "label": "Equifax Australia (Invoice Normalisation)", "product": "Invoice Normalisation", "value": "MED"}, {"x": "Equifax Australia", "y": 2, "r": 12, "label": "Equifax Australia (CPS 230 (Resilience))", "product": "CPS 230 (Resilience)", "value": "LOW"}, {"x": "Equifax Australia", "y": 3, "r": 16, "label": "Equifax Australia (RFP/RFI Assessment)", "product": "RFP/RFI Assessment", "value": "MED"}, {"x": "AMP Limited", "y": 3, "r": 16, "label": "AMP Limited (Octopai (Lineage))", "product": "Octopai (Lineage)", "value": "MED"}, {"x": "AMP Limited", "y": 2, "r": 12, "label": "AMP Limited (DiM (Data in Motion))", "product": "DiM (Data in Motion)", "value": "LOW"}, {"x": "AMP Limited", "y": 3, "r": 16, "label": "AMP Limited (CAI (Cloudera AI))", "product": "CAI (Cloudera AI)", "value": "MED"}, {"x": "AMP Limited", "y": 3, "r": 16, "label": "AMP Limited (Invoice Normalisation)", "product": "Invoice Normalisation", "value": "MED"}, {"x": "AMP Limited", "y": 5, "r": 22, "label": "AMP Limited (CPS 230 (Resilience))", "product": "CPS 230 (Resilience)", "value": "HIGH"}, {"x": "AMP Limited", "y": 2, "r": 12, "label": "AMP Limited (RFP/RFI Assessment)", "product": "RFP/RFI Assessment", "value": "LOW"}, {"x": "Bendigo & Adelaide", "y": 5, "r": 22, "label": "Bendigo & Adelaide (Octopai (Lineage))", "product": "Octopai (Lineage)", "value": "HIGH"}, {"x": "Bendigo & Adelaide", "y": 3, "r": 16, "label": "Bendigo & Adelaide (DiM (Data in Motion))", "product": "DiM (Data in Motion)", "value": "MED"}, {"x": "Bendigo & Adelaide", "y": 3, "r": 16, "label": "Bendigo & Adelaide (CAI (Cloudera AI))", "product": "CAI (Cloudera AI)", "value": "MED"}, {"x": "Bendigo & Adelaide", "y": 2, "r": 12, "label": "Bendigo & Adelaide (Invoice Normalisation)", "product": "Invoice Normalisation", "value": "LOW"}, {"x": "Bendigo & Adelaide", "y": 5, "r": 22, "label": "Bendigo & Adelaide (CPS 230 (Resilience))", "product": "CPS 230 (Resilience)", "value": "HIGH"}, {"x": "Bendigo & Adelaide", "y": 3, "r": 16, "label": "Bendigo & Adelaide (RFP/RFI Assessment)", "product": "RFP/RFI Assessment", "value": "MED"}, {"x": "Challenger Limited", "y": 3, "r": 16, "label": "Challenger Limited (Octopai (Lineage))", "product": "Octopai (Lineage)", "value": "MED"}, {"x": "Challenger Limited", "y": 2, "r": 12, "label": "Challenger Limited (DiM (Data in Motion))", "product": "DiM (Data in Motion)", "value": "LOW"}, {"x": "Challenger Limited", "y": 3, "r": 16, "label": "Challenger Limited (CAI (Cloudera AI))", "product": "CAI (Cloudera AI)", "value": "MED"}, {"x": "Challenger Limited", "y": 2, "r": 12, "label": "Challenger Limited (Invoice Normalisation)", "product": "Invoice Normalisation", "value": "LOW"}, {"x": "Challenger Limited", "y": 3, "r": 16, "label": "Challenger Limited (CPS 230 (Resilience))", "product": "CPS 230 (Resilience)", "value": "MED"}, {"x": "Challenger Limited", "y": 3, "r": 16, "label": "Challenger Limited (RFP/RFI Assessment)", "product": "RFP/RFI Assessment", "value": "MED"}, {"x": "Cuscal Limited", "y": 2, "r": 12, "label": "Cuscal Limited (Octopai (Lineage))", "product": "Octopai (Lineage)", "value": "LOW"}, {"x": "Cuscal Limited", "y": 5, "r": 22, "label": "Cuscal Limited (DiM (Data in Motion))", "product": "DiM (Data in Motion)", "value": "HIGH"}, {"x": "Cuscal Limited", "y": 5, "r": 22, "label": "Cuscal Limited (CAI (Cloudera AI))", "product": "CAI (Cloudera AI)", "value": "HIGH"}, {"x": "Cuscal Limited", "y": 3, "r": 16, "label": "Cuscal Limited (Invoice Normalisation)", "product": "Invoice Normalisation", "value": "MED"}, {"x": "Cuscal Limited", "y": 3, "r": 16, "label": "Cuscal Limited (CPS 230 (Resilience))", "product": "CPS 230 (Resilience)", "value": "MED"}, {"x": "Cuscal Limited", "y": 2, "r": 12, "label": "Cuscal Limited (RFP/RFI Assessment)", "product": "RFP/RFI Assessment", "value": "LOW"}, {"x": "IAG Limited", "y": 5, "r": 22, "label": "IAG (Octopai (Lineage))", "product": "Octopai (Lineage)", "value": "HIGH"}, {"x": "IAG Limited", "y": 5, "r": 22, "label": "IAG (DiM (Data in Motion))", "product": "DiM (Data in Motion)", "value": "HIGH"}, {"x": "IAG Limited", "y": 5, "r": 22, "label": "IAG (Invoice Normalisation)", "product": "Invoice Normalisation", "value": "HIGH"}, {"x": "IAG Limited", "y": 5, "r": 22, "label": "IAG (CPS 230 (Resilience))", "product": "CPS 230 (Resilience)", "value": "HIGH"}, {"x": "IAG Limited", "y": 3, "r": 16, "label": "IAG (RFP/RFI Assessment)", "product": "RFP/RFI Assessment", "value": "MED"}],
+                        backgroundColor: function(context) {
+                            const prod = context.raw?.product || "";
+                            if(prod.includes('Octopai') || prod.includes('Lineage')) return 'rgba(14, 165, 233, 0.7)';
+                            if(prod.includes('CPS 230') || prod.includes('Resilience')) return 'rgba(244, 63, 94, 0.7)';
+                            if(prod.includes('AI') || prod.includes('Invoice')) return 'rgba(16, 185, 129, 0.7)';
+                            return 'rgba(100, 116, 139, 0.6)';
+                        },
+                        borderColor: 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'category',
+                            labels: ["Pepper Money", "Netwealth", "BOQ", "Equifax Australia", "AMP Limited", "Bendigo & Adelaide", "Challenger Limited", "Cuscal Limited", "IAG Limited"],
+                            title: { display: true, text: 'Account' }
+                        },
+                        y: {
+                            min: 0, max: 6,
+                            title: { display: true, text: 'Urgency Level' },
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value) {
+                                    if(value === 5) return 'Critical (5)';
+                                    if(value === 3) return 'High (3)';
+                                    if(value === 2) return 'Moderate (2)';
+                                    return '';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw.label + " | Fit: " + context.raw.value;
+                                }
+                            }
+                        },
+                        legend: { display: false }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
