@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudera FY27 Strategic Account Brief</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f3f4f6;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 400px;
+        }
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        /* Vibrant Palette: Deep Blue, Teal, Bright Cyan */
+        .bg-brand-dark { background-color: #0f172a; }
+        .bg-brand-primary { background-color: #0ea5e9; }
+        .text-brand-primary { color: #0ea5e9; }
+        .bg-brand-accent { background-color: #f43f5e; }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            position: sticky;
+            top: 0;
+        }
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+        .fit-high { color: #16a34a; font-weight: bold; }
+        .fit-med { color: #ca8a04; font-weight: bold; }
+        .fit-low { color: #94a3b8; }
+    </style>
+    <!-- Vibrant Blue/Teal Palette -->
+    <!-- Palette Name: "Oceanic Data Stream" -->
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigation/Header -->
+    <header class="bg-brand-dark text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-tight">Cloudera FY27 <span class="text-sky-400">Account Strategy Brief</span></h1>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#summary" class="hover:text-sky-300 transition">Overview</a>
+                <a href="#heatmap" class="hover:text-sky-300 transition">Strategic Heatmap</a>
+                <a href="#gtm-table" class="hover:text-sky-300 transition">GTM Mapping Table</a>
+                <a href="#pitches" class="hover:text-sky-300 transition">Elevator Pitches</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 space-y-12">
+
+        <!-- Section 1: Strategic Context Summary -->
+        <section id="summary" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+                <div class="card p-8 h-full border-l-4 border-sky-500">
+                    <h2 class="text-2xl font-bold mb-4 text-slate-800">FY27 Executive Summary</h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        The FY27 growth strategy for the identified accounts (QBE, Zurich, Suncorp, etc.) hinges on three converging pressure points: <strong>Regulatory Compliance (CPS230)</strong>, <strong>Data Efficiency/Cost</strong>, and the race for <strong>AI Readiness</strong>. 
+                    </p>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        Financial Services and Insurance (FSI) accounts are critically exposed to the new APRA CPS230 Operational Risk standard, creating an immediate "Keep-Awake" issue regarding data resilience and vendor management. Simultaneously, legacy data estates are hindering the deployment of Generative AI, making Octopai (Metadata/Lineage) and Data in Motion (DiM) high-fit solutions for creating "AI-Ready" data infrastructure.
+                    </p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <span class="px-3 py-1 bg-sky-100 text-sky-800 rounded-full text-sm font-semibold">Priority: Efficiency</span>
+                        <span class="px-3 py-1 bg-rose-100 text-rose-800 rounded-full text-sm font-semibold">Risk: CPS230</span>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-semibold">Tech: GenAI ROI</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-1">
+                <div class="card p-6 h-full flex flex-col justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-white">
+                    <h3 class="text-xl font-bold mb-2">Top Opportunity Clusters</h3>
+                    <ul class="space-y-4 mt-4">
+                        <li class="flex items-center">
+                            <span class="text-2xl mr-3">🛡️</span>
+                            <div>
+                                <span class="block font-bold text-sky-300">Operational Risk (CPS230)</span>
+                                <span class="text-xs text-slate-400">Target: QBE, Suncorp, ASX, AMP</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-2xl mr-3">🧬</span>
+                            <div>
+                                <span class="block font-bold text-rose-300">AI Trust (Octopai)</span>
+                                <span class="text-xs text-slate-400">Target: Zurich, Medibank, TAL</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-2xl mr-3">⚡</span>
+                            <div>
+                                <span class="block font-bold text-emerald-300">Data in Motion</span>
+                                <span class="text-xs text-slate-400">Target: BHP, REA Group, NIB</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Strategic Heatmap -->
+        <section id="heatmap" class="bg-white rounded-xl shadow-lg p-6">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Strategic Fit Heatmap</h2>
+                <p class="text-slate-500 text-sm">Visualizing the intensity of the "Strategic Fit" across accounts and FY27 Initiatives. Larger bubbles indicate higher priority.</p>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="opportunityBubbleChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Section 3: The GTM Mapping Table -->
+        <section id="gtm-table">
+            <div class="flex justify-between items-end mb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">GTM Mapping Table</h2>
+                    <p class="text-slate-500">Comprehensive breakdown of Use Cases, Triggers, and Personas.</p>
+                </div>
+                <button onclick="copyTable()" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow flex items-center gap-2 transition">
+                    <span>📋 Copy to Clipboard</span>
+                </button>
+            </div>
+
+            <div class="overflow-x-auto bg-white rounded-xl shadow-lg border border-slate-200">
+                <table id="strategyTable" class="w-full text-sm">
+                    <thead>
+                        <tr>
+                            <th class="w-32">Account</th>
+                            <th class="w-40">GTM Use Case</th>
+                            <th class="w-24">Strategic Fit</th>
+                            <th class="w-48">Trigger Event (Why now?)</th>
+                            <th class="w-48">Target Persona</th>
+                            <th class="w-64">Persona's "Keep-Awake" Issue</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <!-- QBE -->
+                        <tr>
+                            <td class="font-bold text-slate-700">QBE</td>
+                            <td>CPS230 (Op Risk)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Impending APRA CPS230 deadline (July 2025 readiness).</td>
+                            <td>Chief Risk Officer (CRO) / Head of Operational Resilience</td>
+                            <td>"If a critical vendor fails, do we have the data continuity to prove resilience to APRA?"</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-slate-700">QBE</td>
+                            <td>Invoice Norm (AI)</td>
+                            <td class="fit-med">MED</td>
+                            <td>Cost pressure on global claims processing efficiency.</td>
+                            <td>Head of Claims Operations</td>
+                            <td>"Leakage in claims payouts due to manual invoice errors is eating our margins."</td>
+                        </tr>
+                        <!-- Zurich -->
+                        <tr>
+                            <td class="font-bold text-slate-700">Zurich</td>
+                            <td>Octopai (Lineage)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Cloud migration of legacy policy admin systems.</td>
+                            <td>Chief Data Officer (CDO)</td>
+                            <td>"I cannot verify the accuracy of the data feeding our new pricing models."</td>
+                        </tr>
+                        <!-- Suncorp -->
+                        <tr>
+                            <td class="font-bold text-slate-700">Suncorp</td>
+                            <td>CPS230 (Op Risk)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Separation from Suncorp Bank (sold to ANZ) requires new compliance baselines.</td>
+                            <td>Head of IT Governance</td>
+                            <td>"Disentangling our systems without breaking compliance is a massive operational risk."</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-slate-700">Suncorp</td>
+                            <td>RFP Assessment</td>
+                            <td class="fit-med">MED</td>
+                            <td>Consolidation of vendors post-bank-sale.</td>
+                            <td>Chief Procurement Officer</td>
+                            <td>"We are drowning in vendor contracts that need manual review for the de-merger."</td>
+                        </tr>
+                        <!-- Medibank -->
+                        <tr>
+                            <td class="font-bold text-slate-700">Medibank</td>
+                            <td>Octopai (Lineage)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Post-hack remediation and trust rebuilding.</td>
+                            <td>CISO / Head of Data Governance</td>
+                            <td>"Do we actually know where every piece of PII resides right now?"</td>
+                        </tr>
+                        <!-- NIB -->
+                        <tr>
+                            <td class="font-bold text-slate-700">NIB Holdings</td>
+                            <td>DiM (NiFi/Kafka)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Shift to "Payer to Partner" (Real-time health monitoring).</td>
+                            <td>Head of Digital Platforms</td>
+                            <td>"Our app data is too slow to trigger real-time health interventions for members."</td>
+                        </tr>
+                        <!-- TAL -->
+                        <tr>
+                            <td class="font-bold text-slate-700">TAL</td>
+                            <td>CPS230 (Op Risk)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Integration of Westpac Life business & regulatory scrutiny.</td>
+                            <td>Head of Integration / CRO</td>
+                            <td>"Merging a massive acquired book while meeting new APRA standards is a recipe for failure."</td>
+                        </tr>
+                        <!-- AIA -->
+                        <tr>
+                            <td class="font-bold text-slate-700">AIA</td>
+                            <td>Invoice Norm</td>
+                            <td class="fit-med">MED</td>
+                            <td>Health claims cost inflation management.</td>
+                            <td>GM Claims Performance</td>
+                            <td>"Medical inflation is outpacing premium growth; we need automated cost control."</td>
+                        </tr>
+                        <!-- ASX -->
+                        <tr>
+                            <td class="font-bold text-slate-700">ASX</td>
+                            <td>Octopai (Lineage)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>CHESS replacement program reset / Data Quality focus.</td>
+                            <td>CIO / Head of Data Architecture</td>
+                            <td>"We cannot afford another failed transformation due to poor data understanding."</td>
+                        </tr>
+                        <!-- MUFG -->
+                        <tr>
+                            <td class="font-bold text-slate-700">MUFG</td>
+                            <td>RFP Assessment</td>
+                            <td class="fit-med">MED</td>
+                            <td>Global efficiency drive / Vendor rationalization.</td>
+                            <td>Head of Vendor Management</td>
+                            <td>"The manual effort to vet service providers across global entities is unscalable."</td>
+                        </tr>
+                        <!-- BHP -->
+                        <tr>
+                            <td class="font-bold text-slate-700">BHP</td>
+                            <td>DiM (NiFi/Flink)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Remote Operating Centers (ROC) & IoT Automation.</td>
+                            <td>Head of OT/IT Convergence</td>
+                            <td>"Latency in sensor data from the Pilbara prevents predictive maintenance on crushers."</td>
+                        </tr>
+                        <!-- REA Group -->
+                        <tr>
+                            <td class="font-bold text-slate-700">REA Group</td>
+                            <td>DiM (Real-time)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Personalized property recommendations (Real-time).</td>
+                            <td>Head of Consumer Product (Data)</td>
+                            <td>"If we don't recommend a property the second it's listed, a competitor will."</td>
+                        </tr>
+                        <!-- AMP -->
+                        <tr>
+                            <td class="font-bold text-slate-700">AMP</td>
+                            <td>CPS230 (Op Risk)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Simplification strategy & Regulatory enforceable undertakings.</td>
+                            <td>Chief Risk Officer</td>
+                            <td>"We are under a microscope; any operational resilience failure will trigger severe penalties."</td>
+                        </tr>
+                        <!-- Resolution Life -->
+                        <tr>
+                            <td class="font-bold text-slate-700">Resolution</td>
+                            <td>Octopai (Lineage)</td>
+                            <td class="fit-high">HIGH</td>
+                            <td>Managing closed books on legacy platforms.</td>
+                            <td>Head of Legacy Systems</td>
+                            <td>"Migrating these 30-year-old policies is impossible if we don't map the data dependencies first."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p id="copyStatus" class="text-right text-emerald-600 text-sm mt-2 font-medium hidden">Table copied to clipboard!</p>
+        </section>
+
+        <!-- Section 4: Elevator Pitches -->
+        <section id="pitches">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800">30-Second Elevator Pitches</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Pitch 1: CRO Focus -->
+                <div class="card p-6 border-t-4 border-rose-500">
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Pitch for CRO / Risk Head</h3>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-1 rounded">Focus: CPS230 & Resilience</span>
+                    </div>
+                    <p class="text-slate-600 italic leading-relaxed">
+                        "Hi [Name], keeping APRA happy with CPS230 is likely top of mind right now. The challenge I’m seeing with peers like Suncorp is proving that your critical data services are resilient <em>without</em> stalling the business. Cloudera is helping FSIs automate that resilience layer—essentially insuring your data availability against vendor failure so you stay compliant without the manual overhead. Can we take 10 minutes to see if this aligns with your July readiness plan?"
+                    </p>
+                </div>
+
+                <!-- Pitch 2: CDO Focus -->
+                <div class="card p-6 border-t-4 border-sky-500">
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Pitch for CDO / Data Arch</h3>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-1 rounded">Focus: Octopai / AI Trust</span>
+                    </div>
+                    <p class="text-slate-600 italic leading-relaxed">
+                        "Hi [Name], I noticed the push for Generative AI in your FY27 strategy. The blocker most CDOs are hitting is 'Data Trust'—they can't safely feed models because they don't have clear lineage of where the data originated. We’ve just acquired Octopai to solve exactly this: instant, automated data lineage that creates a 'trust wrapper' for your AI projects. It cuts the risk of hallucinations and migration errors significantly. Worth a brief look?"
+                    </p>
+                </div>
+
+                <!-- Pitch 3: Operations/Claims -->
+                <div class="card p-6 border-t-4 border-emerald-500">
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Pitch for Head of Claims/Ops</h3>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">Focus: Invoice AI / Efficiency</span>
+                    </div>
+                    <p class="text-slate-600 italic leading-relaxed">
+                        "Hi [Name], with claims inflation squeezing margins, every dollar of leakage counts. We're working with insurers to use AI not just for chat, but to audit incoming invoices at scale—catching duplicates and errors that humans miss. It’s a direct hit to the bottom line that improves efficiency without adding headcount. Are you open to seeing how we normalized billing data for [Competitor/Peer]?"
+                    </p>
+                </div>
+                 <!-- Pitch 4: Mining/Tech -->
+                 <div class="card p-6 border-t-4 border-amber-500">
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Pitch for OT/IT Head (Mining)</h3>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded">Focus: DiM / Telemetry</span>
+                    </div>
+                    <p class="text-slate-600 italic leading-relaxed">
+                        "Hi [Name], minimizing downtime in the Pilbara is obviously critical. The gap we often see is the latency between the sensor on the truck and the decision in the ROC. We're using streaming data to process that telemetry in real-time—at the edge—so you can predict failure <em>before</em> the asset goes down, rather than analyzing it after. Would it be useful to discuss your current data lag?"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 py-8 text-center text-sm">
+        <p>Cloudera FY27 Internal Strategic Briefing Document</p>
+        <p class="mt-2 text-xs">Generated for Senior Strategic Account Executive Use Only</p>
+    </footer>
+
+    <script>
+        // Copy Table Functionality
+        function copyTable() {
+            const table = document.getElementById('strategyTable');
+            let range, selection;
+
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                range.selectNodeContents(table);
+                selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                
+                try {
+                    document.execCommand('copy');
+                    const status = document.getElementById('copyStatus');
+                    status.classList.remove('hidden');
+                    setTimeout(() => status.classList.add('hidden'), 3000);
+                } catch (err) {
+                    console.error('Unable to copy', err);
+                }
+                
+                selection.removeAllRanges();
+            }
+        }
+
+        // Chart.js Configuration for Bubble/Matrix Chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('opportunityBubbleChart').getContext('2d');
+            
+            // Custom Tooltip for Multiline support
+            const tooltipPlugin = {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            const label = item.chart.data.labels[item.dataIndex];
+                            // Although we aren't using string labels on axes primarily, this safety check exists
+                            return Array.isArray(label) ? label.join(' ') : label;
+                        },
+                        label: function(context) {
+                            return context.raw.label + ': ' + context.raw.value;
+                        }
+                    }
+                }
+            };
+
+            const data = {
+                datasets: [{
+                    label: 'Strategic Opportunities',
+                    data: [
+                        { x: 1, y: 5, r: 15, label: 'QBE (CPS230)', value: 'High Fit' },
+                        { x: 1, y: 2, r: 10, label: 'QBE (Invoice)', value: 'Med Fit' },
+                        { x: 2, y: 5, r: 15, label: 'Suncorp (CPS230)', value: 'High Fit' },
+                        { x: 3, y: 4, r: 15, label: 'Zurich (Octopai)', value: 'High Fit' },
+                        { x: 4, y: 5, r: 12, label: 'Medibank (Octopai)', value: 'High Fit' },
+                        { x: 4, y: 4, r: 12, label: 'NIB (DiM)', value: 'High Fit' },
+                        { x: 5, y: 5, r: 15, label: 'ASX (CPS230)', value: 'High Fit' },
+                        { x: 6, y: 4, r: 12, label: 'BHP (DiM)', value: 'High Fit' },
+                        { x: 7, y: 4, r: 12, label: 'REA (DiM)', value: 'High Fit' },
+                        { x: 8, y: 5, r: 15, label: 'AMP (CPS230)', value: 'High Fit' },
+                        { x: 9, y: 5, r: 12, label: 'Resolution (Octopai)', value: 'High Fit' },
+                        { x: 2, y: 2, r: 8,  label: 'Suncorp (RFP)', value: 'Med Fit' },
+                        { x: 6, y: 3, r: 10, label: 'BHP (Octopai)', value: 'Med Fit' }
+                    ],
+                    backgroundColor: function(context) {
+                        const val = context.raw?.label;
+                        if(val && val.includes('CPS230')) return 'rgba(244, 63, 94, 0.7)'; // Rose for Risk
+                        if(val && val.includes('Octopai')) return 'rgba(14, 165, 233, 0.7)'; // Sky for Data
+                        if(val && val.includes('DiM')) return 'rgba(16, 185, 129, 0.7)'; // Emerald for Speed
+                        return 'rgba(100, 116, 139, 0.7)';
+                    }
+                }]
+            };
+
+            const config = {
+                type: 'bubble',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: tooltipPlugin,
+                    scales: {
+                        x: {
+                            type: 'category',
+                            labels: ['QBE', 'Suncorp', 'Zurich', 'Medibank', 'ASX', 'BHP', 'REA', 'AMP', 'Resolution'],
+                            title: { display: true, text: 'Strategic Account' },
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            min: 0,
+                            max: 6,
+                            title: { display: true, text: 'Strategic Urgency (1-5)' },
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value) {
+                                    if(value === 5) return 'Critical (5)';
+                                    if(value === 3) return 'Strategic (3)';
+                                    if(value === 1) return 'Explore (1)';
+                                    return '';
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            new Chart(ctx, config);
+        });
+    </script>
+</body>
+</html>
